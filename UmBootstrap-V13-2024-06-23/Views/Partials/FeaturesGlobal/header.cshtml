@@ -11,55 +11,55 @@
     var currentUrl = HttpContextAccessor.HttpContext!.Request.Path.ToString();
     var currentPage = umbracoContext.UmbracoContext.Content!.GetByRoute(currentUrl);
 }
-<header class="screen--header sticky-top shadow-b bg-light pb-1">
-    <nav class="container-xxl navbar navbar-nav navbar-expand-lg">
-        <div class="container-fluid">
+<header class="screen--header sticky top-0 shadow bg-light pb-1">
+    <nav class="container mx-auto flex flex-wrap items-center justify-between">
+        <div class="flex items-center">
             <a class="navbar-brand" href="/">
-                <img src="@Model.Logo?.GetCropUrl())" />
+                <img src="@Model.Logo?.GetCropUrl()" />
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="offcanvas" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="offcanvas offcanvas-start" id="navbarNav">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasRightLabel">In this site</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body d-flex justify-content-lg-end">
-                    <ul class="navbar-nav nav-pills flex-grow-1 flex-lg-grow-0 gap-3">
-                        @{
-                            foreach (var menuItem in Model.MainNavigation!)
+        </div>
+        <div class="offcanvas offcanvas-start" id="navbarNav">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasRightLabel">In this site</h5>
+                <button type="button" class="btn-close" data-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body flex justify-end">
+                <ul class="flex flex-col lg:flex-row gap-3">
+                    @{
+                        foreach (var menuItem in Model.MainNavigation!)
+                        {
+                            // check for children
+                            var childClass = "";
+                            if (menuItem.Children.Any())
                             {
-                                // check for children
-                                var childClass = "";
-                                if (menuItem.Children.Any())
+                                childClass = "dropdown";
+                            }
+
+                            <li class="nav-item text-center @childClass">
+                                @if (string.IsNullOrEmpty(childClass))
                                 {
-                                    childClass = "dropdown";
+                                    <a class="nav-link @Html.If(menuItem.IsActive(currentPage, true), "active")" href="@menuItem.Url()" target="@menuItem.Target">@menuItem.Title</a>
+                                }
+                                else
+                                {
+                                    <a class="nav-link dropdown-toggle" href="@menuItem.Url()" target="@menuItem.Target" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                                        @menuItem.Title
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        @foreach (var subItem in menuItem.Children)
+                                        {
+                                            <li><a class="dropdown-item @Html.If(subItem.IsActive(currentPage, true), "active")" href="@subItem.Url()">@subItem.Title</a></li>
+                                        }
+                                    </ul>
                                 }
 
-                                <li class="nav-item text-center @childClass">
-                                    @if (string.IsNullOrEmpty(childClass))
-                                    {
-                                        <a class="nav-link @Html.If(menuItem.IsActive(currentPage, true), "active")" href="@menuItem.Url()" target="@menuItem.Target">@menuItem.Title</a>
-                                    }
-                                    else
-                                    {
-                                        <a class="nav-link dropdown-toggle" href="@menuItem.Url()" target="@menuItem.Target" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            @menuItem.Title
-                                        </a>
-                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            @foreach (var subItem in menuItem.Children)
-                                            {
-                                                <li><a class="dropdown-item @Html.If(subItem.IsActive(currentPage, true), "active")" href="@subItem.Url()">@subItem.Title</a></li>
-                                            }
-                                        </ul>
-                                    }
-                                    
-                                </li>
-                            }
+                            </li>
                         }
-                    </ul>
-                </div>
+                    }
+                </ul>
             </div>
         </div>
     </nav>
