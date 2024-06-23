@@ -1,0 +1,99 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Our.Umbraco.UmbNav.Web" Version="3.0.0" />
+	  <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
+	  <PackageReference Include="Umbraco.Cms" Version="13.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Opt-in to app-local ICU to ensure consistent globalization APIs across different platforms -->
+    <PackageReference Include="Microsoft.ICU.ICU4C.Runtime" Version="68.2.0.9" />
+    <PackageReference Include="Umbraco.Community.BlockPreview" Version="1.8.4" />
+    <PackageReference Include="uSync" Version="13.2.3" />
+    <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="68.2.0.9" Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\MacroPartials\" />
+    <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\assets\" />
+    <None Include="wwwroot\media\**\*">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="App_Plugins\icons\Layout 12.svg" />
+    <None Include="App_Plugins\icons\Layout 3-6-3.svg" />
+    <None Include="App_Plugins\icons\Layout 3nav-9.svg" />
+    <None Include="App_Plugins\icons\Layout 6-6.svg" />
+    <None Include="App_Plugins\icons\Layout 8.svg" />
+    <None Include="Views\Home.cshtml" />
+    <None Include="Views\Partials\blockgrid\area.cshtml" />
+    <None Include="Views\Partials\blockgrid\areas.cshtml" />
+    <None Include="Views\Partials\blockgrid\Components\featureCode.cshtml" />
+    <None Include="Views\Partials\blockgrid\Components\featureFAQs.cshtml" />
+    <None Include="Views\Partials\blockgrid\Components\featureFormContactUs.cshtml" />
+    <None Include="Views\Partials\blockgrid\Components\featureHTML.cshtml" />
+    <None Include="Views\Partials\blockgrid\Components\featureImage.cshtml" />
+    <None Include="Views\Partials\blockgrid\Components\featureInternalLinks.cshtml" />
+    <None Include="Views\Partials\blockgrid\Components\featureInternalLinksChildren.cshtml" />
+    <None Include="Views\Partials\blockgrid\Components\featureInternalLinksPagination.cshtml" />
+    <None Include="Views\Partials\blockgrid\Components\featureInternalLinksSlideshow.cshtml" />
+    <None Include="Views\Partials\blockgrid\Components\featureNavigationDescendants.cshtml" />
+    <None Include="Views\Partials\blockgrid\Components\featurePageTitleDescription.cshtml" />
+    <None Include="Views\Partials\blockgrid\Components\featureRichTextEditor.cshtml" />
+    <None Include="Views\Partials\blockgrid\Components\featureTabs.cshtml" />
+    <None Include="Views\Partials\blockgrid\Components\layout12.cshtml" />
+    <None Include="Views\Partials\blockgrid\Components\layout363.cshtml" />
+    <None Include="Views\Partials\blockgrid\Components\layout39.cshtml" />
+    <None Include="Views\Partials\blockgrid\Components\layout66.cshtml" />
+    <None Include="Views\Partials\blockgrid\Components\layout8.cshtml" />
+    <None Include="Views\Partials\blockgrid\Components\_Layout_Features.cshtml" />
+    <None Include="Views\Partials\blockgrid\Components\_Layout_Layouts.cshtml" />
+    <None Include="Views\Partials\blockgrid\default.cshtml" />
+    <None Include="Views\Partials\blockgrid\items.cshtml" />
+    <None Include="Views\Partials\blocklist\Components\featureComponentFAQ.cshtml" />
+    <None Include="Views\Partials\blocklist\Components\featureComponentTab.cshtml" />
+    <None Include="Views\Partials\blocklist\Components\featureImage.cshtml" />
+    <None Include="Views\Partials\blocklist\Components\featureRichTextEditor.cshtml" />
+    <None Include="Views\Partials\blocklist\default.cshtml" />
+    <None Include="Views\Partials\FeaturesGlobal\footer.cshtml" />
+    <None Include="Views\Partials\FeaturesGlobal\header.cshtml" />
+    <None Include="Views\Partials\FeaturesGlobal\utility-bar.cshtml" />
+    <None Include="Views\Partials\grid\bootstrap3-fluid.cshtml" />
+    <None Include="Views\Partials\grid\bootstrap3.cshtml" />
+    <None Include="Views\Partials\grid\editors\base.cshtml" />
+    <None Include="Views\Partials\grid\editors\embed.cshtml" />
+    <None Include="Views\Partials\grid\editors\macro.cshtml" />
+    <None Include="Views\Partials\grid\editors\media.cshtml" />
+    <None Include="Views\Partials\grid\editors\rte.cshtml" />
+    <None Include="Views\Partials\grid\editors\textstring.cshtml" />
+    <None Include="Views\Partials\Head\_meta.cshtml" />
+    <None Include="Views\WebPage.cshtml" />
+    <None Include="Views\_Layout.cshtml" />
+    <None Include="Views\_ViewImports.cshtml" />
+  </ItemGroup>
+
+	<PropertyGroup>
+    <!-- Referenced assemblies (DLLs) will be copied to the publish directory when you build and publish your Umbraco project -->
+    <CopyReferencedAssembliesToPublishDirectory>true</CopyReferencedAssembliesToPublishDirectory>
+    <!-- Razor files are needed for the backoffice to work correctly -->
+    <CopyRazorGenerateFilesToPublishDirectory>true</CopyRazorGenerateFilesToPublishDirectory>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Remove RazorCompileOnBuild and RazorCompileOnPublish when not using ModelsMode InMemoryAuto -->
+    <RazorCompileOnBuild>false</RazorCompileOnBuild>
+    <RazorCompileOnPublish>false</RazorCompileOnPublish>
+  </PropertyGroup>
+
+  
+</Project>
