@@ -17,7 +17,7 @@
 
 
 <!-- START - AREAS -->
-<div class="areas grid container" data-areas="@dataAreas" data-ContentUdi="@Model.ContentUdi" data-Content="@Model.Content" data-GridColumns="@Model.GridColumns">
+<div class="areas grid container mx-auto" data-areas="@dataAreas" data-ContentUdi="@Model.ContentUdi" data-Content="@Model.Content" data-GridColumns="@Model.GridColumns">
     @foreach (var area in Model.Areas)
     {
         @await Html.GetPreviewBlockGridItemAreaHtmlAsync(area)
